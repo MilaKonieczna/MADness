@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "356668849707",
+    "project_id": "madness-1f75c",
+    "storage_bucket": "madness-1f75c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:356668849707:android:e3c46ee082878d5d63746e",
+        "android_client_info": {
+          "package_name": "com.example.madness"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbf8ytcNDPC-W2D9-k9SURxxHfmdPx5Ak"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
