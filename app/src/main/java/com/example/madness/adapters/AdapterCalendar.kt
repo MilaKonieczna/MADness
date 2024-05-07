@@ -36,12 +36,14 @@ class CalendarViewHolder(itemView: View, private val onItemListener: CalendarAda
     RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
     val dayOfMonth: TextView = itemView.findViewById(R.id.day)
-
+        //TODO: the different color background it there is appointment
+        // also when touched and there is an appointment toast the name of the vaccine
     init {
         itemView.setOnClickListener(this)
     }
 
     override fun onClick(view: View) {
         onItemListener.onItemClick(adapterPosition, dayOfMonth.text.toString())
+
     }
 }

@@ -1,13 +1,13 @@
 package com.example.madness
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.RequiresApi
-import androidx.fragment.app.Fragment
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.madness.adapters.CalendarAdapter
@@ -15,38 +15,38 @@ import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
 
-class Calendar : Fragment(), CalendarAdapter.OnItemListener {
+class Home : AppCompatActivity(), CalendarAdapter.OnItemListener {
 
     private lateinit var monthYearText: TextView
     private lateinit var calendarRecyclerView: RecyclerView
     private lateinit var selectedDate: LocalDate
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.activity_calendar, container, false)
-    }
-
     @RequiresApi(Build.VERSION_CODES.O)
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initWidgets(view)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_home)
+        initWidgets()
         selectedDate = LocalDate.now()
         setMonthView()
+
+        val history = findViewById<LinearLayout>(R.id.HistoryLL)
+        val upcoming = findViewById<LinearLayout>(R.id.UpcomingLL)
+
+        history.setOnClickListener{goToHistory()}
+        upcoming.setOnClickListener{goToUpcoming()}
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun initWidgets(view: View) {
-        calendarRecyclerView = view.findViewById(R.id.calendarRecyclerView)
-        monthYearText = view.findViewById(R.id.monthYearTV)
+    private fun initWidgets() {
+        calendarRecyclerView = findViewById(R.id.calendarRecyclerView)
+        monthYearText = findViewById(R.id.monthYearTV)
 
-        view.findViewById<View>(R.id.previousMonthBTN).setOnClickListener {
+        findViewById<View>(R.id.previousMonthBTN).setOnClickListener {
             selectedDate = selectedDate.minusMonths(1)
             setMonthView()
         }
 
-        view.findViewById<View>(R.id.nextMonthBTN).setOnClickListener {
+        findViewById<View>(R.id.nextMonthBTN).setOnClickListener {
             selectedDate = selectedDate.plusMonths(1)
             setMonthView()
         }
@@ -58,7 +58,7 @@ class Calendar : Fragment(), CalendarAdapter.OnItemListener {
         val daysInMonth = daysInMonthArray(selectedDate)
 
         val calendarAdapter = CalendarAdapter(daysInMonth, this)
-        val layoutManager = GridLayoutManager(requireContext(), 7)
+        val layoutManager = GridLayoutManager(this, 7)
         calendarRecyclerView.layoutManager = layoutManager
         calendarRecyclerView.adapter = calendarAdapter
     }
@@ -92,7 +92,17 @@ class Calendar : Fragment(), CalendarAdapter.OnItemListener {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onItemClick(position: Int, dayText: String) {
         if (dayText.isNotEmpty()) {
-            val selectedDate = LocalDate.of(selectedDate.year, selectedDate.month, dayText.toInt())
+             selectedDate = LocalDate.of(selectedDate.year, selectedDate.month, dayText.toInt())
         }
+    }
+    private fun goToHistory() {
+        val intent = Intent(this, History::class.java)
+        startActivity(intent)
+        finish()
+    }
+    private fun goToUpcoming() {
+        val intent = Intent(this, Upcoming::class.java)
+        startActivity(intent)
+        finish()
     }
 }

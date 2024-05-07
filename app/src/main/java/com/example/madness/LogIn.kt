@@ -72,7 +72,7 @@ class LogIn : AppCompatActivity() {
     }
 
     private fun goToMain() {
-        val intent = Intent(this, MainActivity::class.java)
+        val intent = Intent(this, Home::class.java)
         startActivity(intent)
         finish()
     }

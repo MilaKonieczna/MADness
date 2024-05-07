@@ -39,7 +39,7 @@ class SignUp : AppCompatActivity() {
 
         login.setOnClickListener{ goToLogIn()}
 
-        binding.button.setOnClickListener{
+        binding.save.setOnClickListener{
             username = binding.usernameEV
             email = binding.emailEV
             password = binding.passwordEV
